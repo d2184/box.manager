@@ -116,13 +116,6 @@ object SettingCmd {
         return execRootCmd("sed -i 's/find-process-mode:.*/find-process-mode: $mode/;' /data/adb/box/clash/config.yaml")
     }
 
-    val clashType: String
-        get() = execRootCmd("grep 'xclash_option=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
-
-    fun setClashType(mode: String): String {
-        return execRootCmd("sed -i 's/xclash_option=.*/xclash_option=\"$mode\"/;' /data/adb/box/settings.ini")
-    }
-
     val core: String
         get() = execRootCmd("grep 'bin_name=' /data/adb/box/settings.ini | sed 's/^.*=//g' | sed 's/\"//g'")
 

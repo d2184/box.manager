@@ -1,6 +1,6 @@
 <resources>
     <!-- Apps -->
-    <string name="app_name">BoxForRoot</string>
+    <string name="app_name">BoxForMagisk</string>
     <string name="min_module_vrsion">20230814</string>
     <string name="apps_count_list">added %d apps in mode %s</string>
     <string name="no_apps_count_list">mode %s</string>

@@ -67,7 +67,6 @@ class SettingDialog : MaterialDialogFragment() {
                             clash5.visibility = visibility
                             clash6.visibility = visibility
                             clash7.visibility = visibility
-                            clash8.visibility = visibility
                             
                             setCore = when (position) {
                                 0 -> "clash"
@@ -101,20 +100,6 @@ class SettingDialog : MaterialDialogFragment() {
                             }
                         }
                         override fun onNothingSelected(p0: AdapterView<*>?) {}
-                    }
-                }
-
-                spClashType.apply {
-                    buildSpinner(resources.getStringArray(R.array.clash_core_array), this)
-                    setSelection(if (clashType == "premium") 0 else 1)
-                    onItemSelectedListener = object : OnItemSelectedListener {
-                        override fun onItemSelected(
-                            p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long
-                        ) {
-                            setClashType(if (p2 == 0) "premium" else "mihomo")
-                        }
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
                     }
                 }
 
@@ -286,7 +271,6 @@ class SettingDialog : MaterialDialogFragment() {
         coreSelector.isEnabled = bo
         spProxyMode.isEnabled = bo
         spNetworkMode.isEnabled = bo
-        spClashType.isEnabled = bo
         spFindProc.isEnabled = bo
     }
 }

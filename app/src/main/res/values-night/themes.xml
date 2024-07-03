@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.BoxForRoot" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.BoxForMagisk" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/material_blue</item>
         <item name="colorPrimaryVariant">@color/material_blue</item>

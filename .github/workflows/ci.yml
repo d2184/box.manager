@@ -1,0 +1,92 @@
+name: Build
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - "docs/**"
+      - "README.md"
+      - ".github/ISSUE_TEMPLATE/**"
+    branches:
+      - main
+
+env: 
+  TZ: Asia/Shanghai
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: update version
+        run: |
+          sed -i "s|versionCode .*|versionCode $(date +%Y%m%d)|g" app/build.gradle
+          sed -i "s|versionName .*|versionName \"1.13-$(git rev-parse --short HEAD)\"|g" app/build.gradle
+
+      - name: Build with Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon --no-configuration-cache -q app:assembleRelease
+
+      - name: checking release version
+        run: |
+          version=$(sed -n 's/versionName "\([0-9.]*-[a-z,0-9]*\)"/\1/p' app/build.gradle)
+          echo "RELEASE_VERSION=${version}" >> $GITHUB_ENV
+
+      - name: rename apks
+        run: |
+          APK="Box4Root-Manager_v${RELEASE_VERSION}.apk"
+          mv -f ./app/build/outputs/apk/release/*.apk "./app/build/outputs/apk/release/${APK}"
+
+      - name: Display files in directory
+        run: |
+          ls app/build/outputs/apk/release
+
+      - uses: d2184/android-sign@main
+        name: Sign app APK
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          output: app/build/outputs/apk/release/signed
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          signingKeyBase64: ${{ secrets.KEYSTORE_CONTENT }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "33.0.0"
+
+      - name: Delete current Prerelease-alpha assets
+        if: ${{ github.ref_name == 'main' && github.event_name != 'pull_request' }}
+        uses: mknejp/delete-release-assets@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: Prerelease-Alpha
+          assets: "*.apk"
+          fail-if-no-assets: false
+          fail-if-no-release: false
+
+      - name: Upload Prerelease-alpha
+        if: ${{ github.ref_name == 'main' && github.event_name != 'pull_request' }}
+        uses: svenstaro/upload-release-action@master
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: Prerelease-Alpha
+          release_name: Prerelease-Alpha
+          file: "./app/build/outputs/apk/release/signed/*.apk"
+          prerelease: true
+          file_glob: true
