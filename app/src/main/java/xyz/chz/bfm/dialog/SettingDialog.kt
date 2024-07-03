@@ -67,7 +67,6 @@ class SettingDialog : MaterialDialogFragment() {
                             clash5.visibility = visibility
                             clash6.visibility = visibility
                             clash7.visibility = visibility
-                            clash8.visibility = visibility
                             
                             setCore = when (position) {
                                 0 -> "clash"
@@ -101,20 +100,6 @@ class SettingDialog : MaterialDialogFragment() {
                             }
                         }
                         override fun onNothingSelected(p0: AdapterView<*>?) {}
-                    }
-                }
-
-                spClashType.apply {
-                    buildSpinner(resources.getStringArray(R.array.clash_core_array), this)
-                    setSelection(if (clashType == "premium") 0 else 1)
-                    onItemSelectedListener = object : OnItemSelectedListener {
-                        override fun onItemSelected(
-                            p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long
-                        ) {
-                            setClashType(if (p2 == 0) "premium" else "mihomo")
-                        }
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
                     }
                 }
 
@@ -190,38 +175,17 @@ class SettingDialog : MaterialDialogFragment() {
                     }
                 }
 
-                cbsubs.apply {
-                    isChecked = subs.toBoolean()
+                cbTcpCon.apply{
+                    isChecked = tcpCon
                     setOnCheckedChangeListener { _, b ->
-                        if (b) setSubs("true") else setSubs("false")
+                        if (b) setTcpCon("true") else setTcpCon("false")
                     }
                 }
 
-                cbgeo.apply {
-                    isChecked = geo.toBoolean()
+                cbgeox.apply {
+                    isChecked = geox.toBoolean()
                     setOnCheckedChangeListener { _, b ->
-                        if (b) setGeo("true") else setGeo("false")
-                    }
-                }
-
-                cbmemcg.apply {
-                    isChecked = memcg.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setMemcg("true") else setMemcg("false")
-                    }
-                }
-
-                cbblkio.apply {
-                    isChecked = blkio.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setBlkio("true") else setBlkio("false")
-                    }
-                }
-
-                cbcpuset.apply {
-                    isChecked = cpuset.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setCpuset("true") else setCpuset("false")
+                        if (b) setGeox("true") else setGeox("false")
                     }
                 }
 
@@ -276,17 +240,13 @@ class SettingDialog : MaterialDialogFragment() {
         cbcron.isEnabled = bo
         cbipv6.isEnabled = bo
         cbquic.isEnabled = bo
-        cbmemcg.isEnabled = bo
-        cbblkio.isEnabled = bo
-        cbcpuset.isEnabled = bo
-        cbgeo.isEnabled = bo
-        cbsubs.isEnabled = bo
+        cbgeox.isEnabled = bo
         cbgeodataMod.isEnabled = bo
+        cbTcpCon.isEnabled = bo
         cbredirHost.isEnabled = bo
         coreSelector.isEnabled = bo
         spProxyMode.isEnabled = bo
         spNetworkMode.isEnabled = bo
-        spClashType.isEnabled = bo
         spFindProc.isEnabled = bo
     }
 }

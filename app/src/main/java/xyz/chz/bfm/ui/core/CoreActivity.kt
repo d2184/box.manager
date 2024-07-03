@@ -102,7 +102,7 @@ class CoreActivity : AppCompatActivity() {
                 dCore.downloadFile(
                     urlClash,
                     "clash_meta.gz",
-                    "/data/adb/box/bin/xclash/mihomo",
+                    "/data/adb/box/bin/clash",
                     object : IDownloadCore {
                         override fun onDownloadingStart() {
                             prgHrzClash.isVisible = true

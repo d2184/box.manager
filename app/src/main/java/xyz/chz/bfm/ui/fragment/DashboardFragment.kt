@@ -51,7 +51,7 @@ class DashboardFragment : Fragment(), IMakeDialog {
         } else {
             TermCmd.linkDBSing
         }
-        dbWebview.loadUrl("${linkDB}/ui/#/proxies")
+        dbWebview.loadUrl("${linkDB}/ui")
 
         with(dbWebview.settings) {
             domStorageEnabled = true

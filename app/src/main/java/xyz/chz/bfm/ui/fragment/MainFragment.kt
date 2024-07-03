@@ -191,7 +191,7 @@ class MainFragment : Fragment(), ISettingDialog, IMakeDialog {
 
     override fun onAbout(dialog: DialogFragment) {
         // dont remove this :)
-        val df = MakeDialog("About", "App: t.me/chetoosz\nModule: t.me/taamarin")
+        val df = MakeDialog("About", "App: @chetoosz\nModule: @taamarin\nModed: @d2184")
         df.listener = this@MainFragment
         df.show(requireActivity().supportFragmentManager, "")
     }
@@ -199,7 +199,7 @@ class MainFragment : Fragment(), ISettingDialog, IMakeDialog {
     override fun onUpdate(dialog: DialogFragment) {
         binding.prgLoadingTop.visibility = View.GONE
         showRes(
-            "https://raw.githubusercontent.com/taamarin/box_for_magisk/master/update.json",
+            "https://raw.githubusercontent.com/d2184/box_for_magisk/master/update.json",
             "Updater",
             0
         )
@@ -208,7 +208,7 @@ class MainFragment : Fragment(), ISettingDialog, IMakeDialog {
 
     override fun onCheckIP(dialog: DialogFragment) {
         binding.prgLoadingTop.visibility = View.VISIBLE
-        showRes("http://ip-api.com/json", "MyIP", 1)
+        showRes("http://ip-api.com/json", "CheckIP", 1)
         state = 1
     }
 
