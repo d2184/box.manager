@@ -7,5 +7,5 @@ const val EXTRACTOR =
 const val QUOTES = "sed 's/\"//g'"
 const val META_REPO = "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
 const val META_DOWNLOAD = "https://github.com/MetaCubeX/mihomo/releases/download"
-const val SING_REPO = "https://api.github.com/repos/shioeri/sing-box/releases"
-const val SING_DOWNLOAD = "https://github.com/shioeri/sing-box/releases/download"
+const val SING_REPO = "https://api.github.com/repos/d2184/sing-box/releases"
+const val SING_DOWNLOAD = "https://github.com/d2184/sing-box/releases/download"

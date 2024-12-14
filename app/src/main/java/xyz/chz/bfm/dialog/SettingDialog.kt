@@ -67,14 +67,13 @@ class SettingDialog : MaterialDialogFragment() {
                             clash5.visibility = visibility
                             clash6.visibility = visibility
                             clash7.visibility = visibility
-                            clash8.visibility = visibility
                             
                             setCore = when (position) {
-                                0 -> "clash"
-                                1 -> "sing-box"
-                                2 -> "xray"
-                                3 -> "hysteria"
-                                else -> "v2fly"
+                                0 -> "\"clash\""
+                                1 -> "\"sing-box\""
+                                2 -> "\"xray\""
+                                3 -> "\"hysteria\""
+                                else -> "\"v2fly\""
                             }
                         }
                 
@@ -101,20 +100,6 @@ class SettingDialog : MaterialDialogFragment() {
                             }
                         }
                         override fun onNothingSelected(p0: AdapterView<*>?) {}
-                    }
-                }
-
-                spClashType.apply {
-                    buildSpinner(resources.getStringArray(R.array.clash_core_array), this)
-                    setSelection(if (clashType == "premium") 0 else 1)
-                    onItemSelectedListener = object : OnItemSelectedListener {
-                        override fun onItemSelected(
-                            p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long
-                        ) {
-                            setClashType(if (p2 == 0) "premium" else "mihomo")
-                        }
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
                     }
                 }
 
@@ -176,10 +161,17 @@ class SettingDialog : MaterialDialogFragment() {
                     }
                 }
 
-                cbredirHost.apply {
-                    isChecked = redirHost
+                cbfakeIp.apply {
+                    isChecked = fakeIp
                     setOnCheckedChangeListener { _, b ->
-                        if (b) setRedirHost("redir-host") else setRedirHost("fake-ip")
+                        if (b) setfakeIp("fake-ip") else setfakeIp("redir-host")
+                    }
+                }
+
+                cbtcpCon.apply {
+                    isChecked = tcpCon
+                    setOnCheckedChangeListener { _, b ->
+                        if (b) setTcpCon("true") else setTcpCon("false")
                     }
                 }
 
@@ -190,38 +182,10 @@ class SettingDialog : MaterialDialogFragment() {
                     }
                 }
 
-                cbsubs.apply {
-                    isChecked = subs.toBoolean()
+                cbgeox.apply {
+                    isChecked = geox.toBoolean()
                     setOnCheckedChangeListener { _, b ->
-                        if (b) setSubs("true") else setSubs("false")
-                    }
-                }
-
-                cbgeo.apply {
-                    isChecked = geo.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setGeo("true") else setGeo("false")
-                    }
-                }
-
-                cbmemcg.apply {
-                    isChecked = memcg.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setMemcg("true") else setMemcg("false")
-                    }
-                }
-
-                cbblkio.apply {
-                    isChecked = blkio.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setBlkio("true") else setBlkio("false")
-                    }
-                }
-
-                cbcpuset.apply {
-                    isChecked = cpuset.toBoolean()
-                    setOnCheckedChangeListener { _, b ->
-                        if (b) setCpuset("true") else setCpuset("false")
+                        if (b) setGeox("true") else setGeox("false")
                     }
                 }
 
@@ -276,17 +240,13 @@ class SettingDialog : MaterialDialogFragment() {
         cbcron.isEnabled = bo
         cbipv6.isEnabled = bo
         cbquic.isEnabled = bo
-        cbmemcg.isEnabled = bo
-        cbblkio.isEnabled = bo
-        cbcpuset.isEnabled = bo
-        cbgeo.isEnabled = bo
-        cbsubs.isEnabled = bo
+        cbgeox.isEnabled = bo
         cbgeodataMod.isEnabled = bo
-        cbredirHost.isEnabled = bo
+        cbfakeIp.isEnabled = bo
+        cbtcpCon.isEnabled = bo
         coreSelector.isEnabled = bo
         spProxyMode.isEnabled = bo
         spNetworkMode.isEnabled = bo
-        spClashType.isEnabled = bo
         spFindProc.isEnabled = bo
     }
 }
