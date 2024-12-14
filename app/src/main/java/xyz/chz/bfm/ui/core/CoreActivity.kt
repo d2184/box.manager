@@ -101,8 +101,8 @@ class CoreActivity : AppCompatActivity() {
             setOnClickListener {
                 dCore.downloadFile(
                     urlClash,
-                    "clash_meta.gz",
-                    "/data/adb/box/bin/xclash/mihomo",
+                    "mihomo.gz",
+                    "/data/adb/box/bin/clash",
                     object : IDownloadCore {
                         override fun onDownloadingStart() {
                             prgHrzClash.isVisible = true

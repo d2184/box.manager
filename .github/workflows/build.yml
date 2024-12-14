@@ -39,55 +39,41 @@ jobs:
       - name: checking release version
         id: version
         run: |
-          echo ::set-output name=release_version::$(cat app/build.gradle  | grep -o "versionName \"[0-9.]*-[a-z,0-9]*\"" | grep -o "[0-9.]*-[a-z,0-9]*")
+          echo "RELEASE_VERSION=$(cat app/build.gradle  | grep -o "versionName \"[0-9.]*-[a-z,0-9]*\"" | grep -o "[0-9.]*-[a-z,0-9]*")" >> $GITHUB_OUTPUT
 
       - name: rename apks
         run: |
-          APK="Box4Root-Manager_v${{ steps.version.outputs.release_version }}.apk"
+          APK="Box4Magisk-Manager_v${{ steps.version.outputs.RELEASE_VERSION }}.apk"
           mv -f ./app/build/outputs/apk/release/*.apk ./app/build/outputs/apk/release/$APK
 
-      - name: upload artifact
-        uses: actions/upload-artifact@v3
-        if: ${{  success() }}
+      - name: Sign apk
+        uses: d2184/android-sign@main
         with:
-          name: b4r_manager
-          path: ./app/build/outputs/apk/release/*.apk
-
-      - uses: andreaswilli/delete-release-assets-action@v2.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: Prerelease
-          deleteOnlyFromDrafts: false
+          releaseDirectory: ./app/build/outputs/apk/release
+          output: ./app/build/outputs/apk/release/signed
+          alias: ${{ secrets.KEY_ALIAS }}
+          signingKeyBase64: ${{ secrets.KEYSTORE_CONTENT }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_TOOLS_VERSION: "34.0.0"
 
-      - uses: richardsimko/update-tag@v1.0.7
+      - name: Delete current Prerelease-alpha assets
+        uses: mknejp/delete-release-assets@v1
         with:
-          tag_name: Prerelease
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: Prerelease-Alpha
+          assets: "*.apk"
+          fail-if-no-release: false
+          fail-if-no-assets: false
 
-      - uses: softprops/action-gh-release@v1
+      - name: Public
+        uses: svenstaro/upload-release-action@master
         with:
-          tag_name: Prerelease
-          files: ${{ github.workspace }}/app/build/outputs/apk/release/*.apk
-          draft: false
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: Prerelease-Alpha
+          release_name: Prerelease-Alpha
+          file: "./app/build/outputs/apk/release/signed/*.apk"
           prerelease: true
-          generate_release_notes: true
-
-      - name: upload to telegram
-        if: ${{  success() }}
-        env:
-          CHAT_ID: "-1001597117128"
-          MESSAGE_THREAD_ID: "282263"
-          API_ID: ${{ secrets.API_ID }}
-          API_HASH: ${{ secrets.API_HASH }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        run: |
-          if [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then
-            export VERSION="v${{ steps.version.outputs.release_version }}"
-            export COMMIT=$(git log --oneline -n 10 --no-decorate | sed 's/^[0-9a-f]* //' | sed 's/^/— /')
-            FILE=$(find app/build/outputs/apk/release -name "*.apk")
-            pip3 install telethon==1.31.1
-            python3 $GITHUB_WORKSPACE/.github/taamarinbot.py $FILE
-          fi
+          overwrite: true
+          file_glob: true

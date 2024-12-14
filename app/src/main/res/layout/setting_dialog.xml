@@ -82,38 +82,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/clash8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="1.6"
-                android:text="@string/clash_options" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:text=" :" />
-
-            <Spinner
-                android:id="@+id/spClashType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5">
-
-            </Spinner>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/clash5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -167,25 +135,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/clash7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <CheckBox
-                android:id="@+id/cbsubs"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/subscription"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -217,7 +166,7 @@
                 android:textSize="12sp" />
 
             <CheckBox
-                android:id="@+id/cbgeo"
+                android:id="@+id/cbgeox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -232,44 +181,6 @@
                 android:text="@string/crontab"
                 android:textSize="12sp" />
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:layout_marginLeft="9dp"
-            android:text="@string/cgroup_settings" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/cbmemcg"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/memcg"
-                android:textSize="12sp" />
-
-            <CheckBox
-                android:id="@+id/cbblkio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/blkio"
-                android:textSize="12sp" />
-
-            <CheckBox
-                android:id="@+id/cbcpuset"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/cpuset"
-                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout

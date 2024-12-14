@@ -4,7 +4,7 @@ import android.util.Log
 import xyz.chz.bfm.BuildConfig
 
 object TerminalHelper {
-    private const val TAG = "BoxForRoot.Terminal"
+    private const val TAG = "BoxForMagisk.Terminal"
 
     fun execRootCmd(cmd: String): String {
         return try {

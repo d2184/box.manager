@@ -25,39 +25,11 @@ object SettingCmd {
         return execRootCmd("sed -i 's/run_crontab=.*/run_crontab=\"$mode\"/;' /data/adb/box/settings.ini")
     }
 
-    val geo: String
-        get() = execRootCmd("grep 'update_geo=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
+    val geox: String
+        get() = execRootCmd("grep 'update_geox=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
 
-    fun setGeo(mode: String): String {
-        return execRootCmd("sed -i 's/update_geo=.*/update_geo=\"$mode\"/;' /data/adb/box/settings.ini")
-    }
-
-    val memcg: String
-        get() = execRootCmd("grep 'cgroup_memcg=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
-
-    fun setMemcg(mode: String): String {
-        return execRootCmd("sed -i 's/cgroup_memcg=.*/cgroup_memcg=\"$mode\"/;' /data/adb/box/settings.ini")
-    }
-
-    val blkio: String
-        get() = execRootCmd("grep 'cgroup_blkio=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
-
-    fun setBlkio(mode: String): String {
-        return execRootCmd("sed -i 's/cgroup_blkio=.*/cgroup_blkio=\"$mode\"/;' /data/adb/box/settings.ini")
-    }
-
-    val cpuset: String
-        get() = execRootCmd("grep 'cgroup_cpuset=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
-
-    fun setCpuset(mode: String): String {
-        return execRootCmd("sed -i 's/cgroup_cpuset=.*/cgroup_cpuset=\"$mode\"/;' /data/adb/box/settings.ini")
-    }
-
-    val subs: String
-        get() = execRootCmd("grep 'update_subscription=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
-
-    fun setSubs(mode: String): String {
-        return execRootCmd("sed -i 's/update_subscription=.*/update_subscription=\"$mode\"/;' /data/adb/box/settings.ini")
+    fun setGeox(mode: String): String {
+        return execRootCmd("sed -i 's/update_geox=.*/update_geo=\"$mode\"/;' /data/adb/box/settings.ini")
     }
 
     val redirHost: Boolean
@@ -114,13 +86,6 @@ object SettingCmd {
 
     fun setFindProc(mode: String): String {
         return execRootCmd("sed -i 's/find-process-mode:.*/find-process-mode: $mode/;' /data/adb/box/clash/config.yaml")
-    }
-
-    val clashType: String
-        get() = execRootCmd("grep 'xclash_option=' /data/adb/box/settings.ini | sed 's/^.*=//' | sed 's/\"//g'")
-
-    fun setClashType(mode: String): String {
-        return execRootCmd("sed -i 's/xclash_option=.*/xclash_option=\"$mode\"/;' /data/adb/box/settings.ini")
     }
 
     val core: String
